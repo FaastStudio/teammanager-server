@@ -41,6 +41,7 @@ router.get('/me', VerifyToken, (req, res, next) => {
 
 // LOGIN
 router.post('/login', (req, res) => {
+  console.log(req.body)
   User.findOne({ email: req.body.email }, (err, user) => {
     if (err) return res.status(500).send('Error on the server...')
     if (!user) return res.status(404).send('No user found.')
