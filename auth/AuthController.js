@@ -24,7 +24,7 @@ router.post('/register', (req, res) => {
     var token = jwt.sign({ id: user._id }, config.secret, {
       expiresIn: 86400 // Expires in 24h
     })
-    res.status(200).send({ auth: true, token: token })
+    res.status(200).send({ auth: true, token: token, userId: user._id })
   })
 })
 
@@ -51,7 +51,7 @@ router.post('/login', (req, res) => {
     var token = jwt.sign({ id: user._id }, config.secret, {
       expiresIn: 86400 // Expires in 24h
     })
-    res.status(200).send({ auth: true, token: token })
+    res.status(200).send({ auth: true, token: token, userId: user._id })
   })
 })
 
