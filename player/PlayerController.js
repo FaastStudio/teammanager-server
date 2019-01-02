@@ -9,10 +9,12 @@ var Player = require('./Player')
 
 // Create a New Player
 router.post('/', VerifyToken, (req, res, next) => {
+  console.log(req.body)
   Player.create({
     name: req.body.name,
     userId: req.body.userId,
-    position: req.body.position
+    position: req.body.position,
+    birthday: req.body.birthday
   }, (err, player) => {
     if (err) return res.status(500).send('There was a problem adding the information to the database.')
     res.status(200).send(player)
@@ -21,9 +23,11 @@ router.post('/', VerifyToken, (req, res, next) => {
 
 // Returns All the Players in The Database created by User
 router.get('/', VerifyToken, (req, res, next) => {
+  console.log(req.query.userId)
   Player.find({ userId: req.query.userId }, (err, players) => {
     if (err) return res.status(500).send('There was a problem finding the players.')
     res.status(200).send(players)
+    console.log(players)
   })
 })
 

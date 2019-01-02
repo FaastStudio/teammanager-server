@@ -16,6 +16,9 @@ var PlayerSchema = new Schema({
   },
   position: {
     type: String
+  },
+  birthday: {
+    type: String
   }
 })
 
