@@ -15,6 +15,23 @@ var UserSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  // Profile Data
+  
+  // Team of User
+  team: {
+    type: String
+  },
+  // team-home
+  address: {
+    type: String
+  },
+  addressNumber: {
+    type: String
+  },
+  zip: {
+    type: String,
+    min: [2, 'Zip too short']
   }
 })
 

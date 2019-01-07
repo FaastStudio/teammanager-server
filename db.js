@@ -2,7 +2,9 @@
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-var mongoDB = 'mongodb://public:pass123@ds241664.mlab.com:41664/teammanager';
+// var mongoDB = 'mongodb://public:pass123@ds241664.mlab.com:41664/teammanager';
+// Local DB
+var mongoDB = 'mongodb://localhost:27017/teammanager'
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
