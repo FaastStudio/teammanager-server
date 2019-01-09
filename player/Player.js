@@ -9,8 +9,8 @@ var PlayerSchema = new Schema({
     type: String,
     required: true
   },
-  // ID Of Coach
-  userId: {
+  // ID Of team
+  teamId: {
     type: String,
     required: true
   },
@@ -19,6 +19,10 @@ var PlayerSchema = new Schema({
   },
   birthday: {
     type: String
+  },
+  backNumber: {
+    type: Number,
+    min: 1
   }
 })
 
