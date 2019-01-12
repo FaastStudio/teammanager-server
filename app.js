@@ -21,5 +21,10 @@ app.use('/players', PlayerController)
 app.use('/training', TrainingController)
 app.use('/api/auth', AuthController)
 
+app.use('/doc', express.Router().get('/', (req, res) => {
+    const path = `${__dirname}/doc/requests.md`
+    res.status(200).sendFile(path)
+}))
+
 module.exports = app;
     
