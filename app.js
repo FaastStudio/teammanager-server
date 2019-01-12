@@ -1,11 +1,13 @@
-var express = require('express')
-var cors = require('cors')
-var app = express()
-var db = require('./db')
+const express = require('express')
+const cors = require('cors')
+const app = express()
+const bodyParser = require('body-parser')
+const db = require('./db')
 
 app.use(cors({
     origin: '*'
 }))
+app.use(bodyParser.json())
 
 var UserController = require('./user/UserController')
 var TeamController = require('./team/TeamController')

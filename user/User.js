@@ -14,13 +14,15 @@ var UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   // Profile Data
   
   // Team of User
   team: {
-    type: String
+    type: Schema.Types.ObjectId,
+    ref: 'Team'
   },
   // team-home
   address: {
@@ -37,4 +39,4 @@ var UserSchema = new Schema({
 
 var User = mongoose.model('User', UserSchema)
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = User

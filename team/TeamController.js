@@ -6,12 +6,21 @@ var VerifyToken = require('../auth/VerifyToken')
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 var Team = require('./Team')
+var User = require('../user/User')
 
-router.post('/create', VerifyToken, (req, res, next) => {
-    Team.create(req.body, (err, team) => {
-        if (err) return res.status(500).send('Something went wrong creating the team...')
-        res.status(201).send(team)
-    })
+router.post('/create/:userId', VerifyToken, async (req, res, next) => {
+    const { userId } = req.params
+    // Create new team
+    const newTeam = new Team(req.body)
+    // Get User
+    const user = await User.findById(userId)
+    // Assign User as Team's coach
+    newTeam.coach = user
+    // save the team
+    await newTeam.save()
+    // Add team to User's profile
+    await User.findByIdAndUpdate(userId, { team: newTeam })
+    res.status(201).send(newTeam)
 })
 
 router.get('/:teamId', VerifyToken, (req, res, next) => {
@@ -19,14 +28,6 @@ router.get('/:teamId', VerifyToken, (req, res, next) => {
         if (err) return res.status(500).send('Error finding the Team')
         if (!team) return res.status(404).send('Could not find any Team')
         res.status(200).send(team)
-    })
-})
-
-router.get('/all', VerifyToken, (req, res, next) => {
-    Team.find({}, (err, teams) => {
-        if (err) return res.status(500).send('Error finding the Team')
-        if (!teams) return res.status(404).send('Could not find any Team')
-        res.status(200).send(teams)
     })
 })
 

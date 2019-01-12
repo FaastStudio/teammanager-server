@@ -8,12 +8,12 @@ var TeamSchema = new Schema({
         required: true
     },
     coach: {
-        type: String,
-        default: null
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     players: {
-        type: Array,
-        default: []
+        type: [Schema.Types.ObjectId],
+        ref: 'Player'
     }
 })
 

@@ -11,8 +11,8 @@ var PlayerSchema = new Schema({
   },
   // ID Of team
   teamId: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'Team'
   },
   position: {
     type: String
@@ -28,4 +28,4 @@ var PlayerSchema = new Schema({
 
 var Player = mongoose.model('Player', PlayerSchema)
 
-module.exports = mongoose.model('Player', PlayerSchema)
+module.exports = Player
