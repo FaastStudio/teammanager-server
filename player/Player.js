@@ -10,7 +10,7 @@ var PlayerSchema = new Schema({
     required: true
   },
   // ID Of team
-  teamId: {
+  team: {
     type: Schema.Types.ObjectId,
     ref: 'Team'
   },

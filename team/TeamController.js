@@ -5,8 +5,9 @@ var VerifyToken = require('../auth/VerifyToken')
 
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
-var Team = require('./Team')
-var User = require('../user/User')
+const Team = require('./Team')
+const User = require('../user/User')
+const Player = require('../player/Player')
 
 router.post('/create/:userId', VerifyToken, async (req, res, next) => {
     const { userId } = req.params
@@ -45,6 +46,23 @@ router.delete('/:teamId/delete', VerifyToken, (req, res, next) => {
         if (!team) return res.status(404).send('No Team found with this ID')
         res.status(205).send('Team successfully removed')
     })
+})
+
+// Add Player to Team
+router.post('/:teamId/player/add', VerifyToken, async (req, res, next) => {
+    const { teamId } = req.params
+    // Create Player
+    const newPlayer = new Player(req.body)
+    // Get Team
+    const team = await Team.findById(teamId)
+    // Assign Team as Player's team
+    newPlayer.team = team
+    // Save Player
+    await newPlayer.save()
+    // Add Player to team
+    team.players.push(newPlayer)
+    await team.save()
+    res.status(201).send(newPlayer)
 })
 
 module.exports = router
